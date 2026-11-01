@@ -1,0 +1,145 @@
+<Window x:Class="BetterApex.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Better Apex · 截图识别" Width="1200" Height="790"
+        MinWidth="1000" MinHeight="650" WindowStartupLocation="CenterScreen"
+        Background="#0E1420" FontFamily="Microsoft YaHei UI" UseLayoutRounding="True">
+    <Grid Margin="32,26">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,0,0,26">
+            <StackPanel>
+                <TextBlock Text="BETTER APEX" FontSize="13" FontWeight="Bold" Foreground="#F28479"/>
+                <TextBlock Text="从一张截图开始" FontSize="28" FontWeight="SemiBold" Margin="0,8,0,6"/>
+                <TextBlock Text="识别结算战绩，或读取对局左下角的队伍昵称。" Foreground="{StaticResource TextSecondary}" FontSize="14"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Border HorizontalAlignment="Right" Background="#1C2B30"
+                    Padding="12,6" CornerRadius="12">
+                <TextBlock Text="本地处理" Foreground="#99D4B9" FontSize="12"/>
+            </Border>
+                <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                    <Button x:Name="CaptureButton" Content="自动记录" Background="#326B63" Margin="0,0,10,0" Click="Capture_Click"/>
+                    <Button x:Name="HistoryButton" Content="历史记录" Background="#263246" Click="History_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" Margin="0,0,0,14">
+                <RadioButton x:Name="SummaryMode" Content="结算战绩" GroupName="ScreenshotMode" IsChecked="True"
+                             Foreground="{StaticResource TextPrimary}" FontSize="14" Checked="ScreenshotModeChanged" Margin="0,0,24,0"/>
+                <RadioButton x:Name="RosterMode" Content="对局昵称" GroupName="ScreenshotMode"
+                             Foreground="{StaticResource TextPrimary}" FontSize="14" Checked="ScreenshotModeChanged"/>
+                <TextBlock x:Name="RoundRosterStatusText" Text="本场名单：未采集" FontSize="12" Margin="24,0,0,0"
+                           Foreground="{StaticResource TextSecondary}" MaxWidth="600" TextTrimming="CharacterEllipsis"/>
+            </StackPanel>
+            <Button x:Name="ImportButton" Grid.Row="1" Content="选择截图" Click="ImportScreenshot_Click"
+                    AutomationProperties.AutomationId="ImportScreenshot"/>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name="OcrButton" Content="识别战绩" Click="RecognizeScreenshot_Click"
+                        Margin="10,0,0,0" IsEnabled="False" AutomationProperties.AutomationId="RecognizeScreenshot"/>
+                <Button x:Name="ClearButton" Content="清除预览" Click="ClearScreenshot_Click"
+                        Background="#263246" Margin="10,0,0,0" IsEnabled="False"
+                        AutomationProperties.AutomationId="ClearScreenshot"/>
+                <Button x:Name="AssociateButton" Content="选择同场结算并关联" Click="AssociateSettlement_Click"
+                        Background="#326B63" Margin="10,0,0,0" IsEnabled="False"
+                        AutomationProperties.AutomationId="AssociateSettlement"/>
+                <Button x:Name="NewRoundButton" Content="新对局" Click="NewRound_Click"
+                        Background="#263246" Margin="10,0,0,0" IsEnabled="False"
+                        AutomationProperties.AutomationId="NewRound"/>
+            </StackPanel>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="PNG / JPG / BMP" Foreground="{StaticResource TextSecondary}"
+                       VerticalAlignment="Center" HorizontalAlignment="Right" Margin="16,0,0,0" FontSize="12"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
+        <Border Background="#151E2D" CornerRadius="10" BorderBrush="#2B374A" BorderThickness="1">
+            <Grid Margin="18">
+                <StackPanel x:Name="EmptyState" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Border Width="64" Height="52" CornerRadius="9" BorderBrush="#63748E" BorderThickness="2"
+                            HorizontalAlignment="Center" Margin="0,0,0,20">
+                        <TextBlock Text="＋" FontSize="32" Foreground="#F28479"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="导入结算图或对局截图" FontSize="19" HorizontalAlignment="Center"/>
+                    <TextBlock Text="选择本地图片后，将在这里显示完整预览。" FontSize="13"
+                               Foreground="{StaticResource TextSecondary}" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <Image x:Name="ScreenshotPreview" Stretch="Uniform" Visibility="Collapsed"
+                       RenderOptions.BitmapScalingMode="HighQuality" AutomationProperties.Name="截图预览"/>
+            </Grid>
+        </Border>
+            <Border Grid.Column="1" Margin="16,0,0,0" Background="#151E2D" CornerRadius="10"
+                    BorderBrush="#2B374A" BorderThickness="1" Padding="18">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <TextBlock x:Name="ResultsTitleText" Text="识别结果" FontSize="20" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="ResultSummaryText" Text="选择图片后，点击“识别战绩”。"
+                                   Foreground="{StaticResource TextSecondary}" TextWrapping="Wrap" Margin="0,10,0,14"/>
+                        <Button x:Name="SaveMatchButton" Content="保存战绩" Click="SaveMatch_Click" Background="#326B63"
+                                IsEnabled="False" Visibility="Collapsed" Margin="0,0,0,10"/>
+                        <TextBlock x:Name="SaveStatusText" Foreground="#99D4B9" TextWrapping="Wrap" FontSize="12" Margin="0,0,0,10" Visibility="Collapsed"/>
+                        <ItemsControl x:Name="PlayerResults">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#1D293B" CornerRadius="7" Padding="12" Margin="0,0,0,10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Position}" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                                            <TextBlock Text="{Binding DisplayName}" FontSize="15" FontWeight="SemiBold" Margin="0,4,0,8" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Stats}" FontSize="12" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding DamageLabel}" FontSize="18" Foreground="#F28479" Margin="0,6,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <ItemsControl x:Name="RosterResults" Visibility="Collapsed">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#1D293B" CornerRadius="7" Padding="12" Margin="0,0,0,10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Position}" Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                            <TextBlock Text="{Binding DisplayName}" FontSize="18" FontWeight="SemiBold" Margin="0,8,0,0" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock x:Name="RecognitionNotesText" Text="当前仅测试提供的三人结算页布局，识别结果请对照原图核对。"
+                                   Foreground="{StaticResource TextSecondary}" FontSize="12" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <StackPanel Grid.Row="3" Margin="0,16,0,0">
+            <TextBlock x:Name="StatusText" Text="尚未选择截图" FontSize="14" TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="ScreenshotStatus"/>
+            <TextBlock x:Name="FileDetailsText" Text="图片仅在本机预览，不会上传或修改原文件。"
+                       Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,7,0,0"
+                       TextWrapping="Wrap"/>
+            <TextBlock x:Name="ErrorText" Visibility="Collapsed" Foreground="#FFAD9F"
+                       FontSize="13" Margin="0,9,0,0" TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="ScreenshotError"/>
+        </StackPanel>
+    </Grid>
+</Window>

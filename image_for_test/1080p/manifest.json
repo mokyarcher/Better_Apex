@@ -1,0 +1,277 @@
+{
+  "date": "2026-11-01",
+  "kind": "derived_1080p_test_fixtures_not_native_captures",
+  "target": [
+    1920,
+    1080
+  ],
+  "method": "Pillow Lanczos, preserve aspect ratio with integer rounding, lossless PNG output; no crop or text edits",
+  "source_files_unchanged": true,
+  "count": 12,
+  "images": [
+    {
+      "source": "00-开始加载-页面一个图片关键字是-三人赛.jpg",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "13383bbd50db1d3f7d5543ecf75339fe1a91189365eab7bc1d9597fa1ee5a626",
+      "output": "00-开始加载-页面一个图片关键字是-三人赛.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "42d3a5f80bdcd8c813b3027146bb00c8ca38d052b98e3a4f0728effeb774061e"
+    },
+    {
+      "source": "01-开始选传奇页面-主要关注左侧靠上的昵称 跟底部的昵称进行定位 copy.jpg",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "9dca992233c9a8cbc148cd9946a1f40206f85f41c3c8bd73d2aab2f0b3792e78",
+      "output": "01-开始选传奇页面-主要关注左侧靠上的昵称 跟底部的昵称进行定位 copy.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "f2466bf3e755b14a2dfcf04c923c7a184dd77c2e11d73054d36cfbfb986834e5"
+    },
+    {
+      "source": "01-开始选传奇页面-主要关注左侧靠上的昵称 跟底部的昵称进行定位.jpg",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "9dca992233c9a8cbc148cd9946a1f40206f85f41c3c8bd73d2aab2f0b3792e78",
+      "output": "01-开始选传奇页面-主要关注左侧靠上的昵称 跟底部的昵称进行定位.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "a64ae6316885fece435fa0aff51870d4984d5a1443a53852700700e1bdfa4c34"
+    },
+    {
+      "source": "02-1.png",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "472203a2728d915fd65886571b4252a3b8e886eeaf97e8ed2427c4ce22ce1a11",
+      "output": "02-1.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "3dc1b51da7f0dacec23b523b30d9f800785f11c85e68a18697ee64c2ec9035ed"
+    },
+    {
+      "source": "02-2.png",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "958bd4901605dda1599cb9181036c24f9b7029fff9098c46d6363bf8e2a41255",
+      "output": "02-2.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "91f183542a109e5868396b7b893ba1dd47fe031e92f4c232ca096190476c0388"
+    },
+    {
+      "source": "02-3.png",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "f3ad6a7f1a8a8567f7d548a8b44d40a2e737102679a16f750d99a9c9714d0f0d",
+      "output": "02-3.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "7d3647888c06c74879d6c045e6a43ee84282262f1f7fbb2f7dde69b8cea6741e"
+    },
+    {
+      "source": "02-4.png",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "e22f075f5b7bd731e36393df2365a7ec11021329ac1d8202b51befb12602121f",
+      "output": "02-4.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "e56b9c25b9c26b717ee47bd1e17070c7ab3a8e33190f3297b323ac4aa5a668c4"
+    },
+    {
+      "source": "02-5.png",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "b8d14b63be4901c8552b0af68bc7946eb843c48136e5ca05630ba48c6ffce0ba",
+      "output": "02-5.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "8dddd5b550bdc285d5191bf133bc04acd6f14f90e57a9c482bb674e1dde24cce"
+    },
+    {
+      "source": "02-6.png",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "f617ed667f37d45dbe83d52ce8a6464e313f53580e807487ff294adc99e933cc",
+      "output": "02-6.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "a443c9637bcf02ee7959885227227a88c3a986059e6936719d89bcdae5985e41"
+    },
+    {
+      "source": "02-游戏中-主要靠两个点进行定位首先是右上角固定出现的剩余小队数量（这个数量是不固定的 不要写死哈）-左下角昵称.jpg",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "755ec4d4b8e6763f3cb21bd1354cfc1e2a30b1ddd50bf463db28e8427dd964fe",
+      "output": "02-游戏中-主要靠两个点进行定位首先是右上角固定出现的剩余小队数量（这个数量是不固定的 不要写死哈）-左下角昵称.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "ff2f81ccb9da78da11c3295c9d6743469793dc6c7c78966c7f706eaad2e25c7c"
+    },
+    {
+      "source": "03-游戏结束结算界面-主要用小队排名跟小队总击杀进行定位.jpg",
+      "source_dimensions": [
+        2560,
+        1440
+      ],
+      "source_sha256": "7ca30f37bb00505640736317334dd0fcd06df9817e15a998d4bda009ce3effad",
+      "output": "03-游戏结束结算界面-主要用小队排名跟小队总击杀进行定位.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "dd40f61a50a26ca5ba3f0ec5b5bc688c3ec85aff591a3e78b06fd945f03e8fb3"
+    },
+    {
+      "source": "regressions/03-feedback-rank9-kills5.jpg",
+      "source_dimensions": [
+        2276,
+        1280
+      ],
+      "source_sha256": "49e5ebba9fdcb3ec3caca1372703773b8085ca0af521a8243fb3f3d0053bf96e",
+      "output": "regressions/03-feedback-rank9-kills5.png",
+      "output_dimensions": [
+        1920,
+        1080
+      ],
+      "resized_content_dimensions": [
+        1920,
+        1080
+      ],
+      "padding_offset": [
+        0,
+        0
+      ],
+      "output_sha256": "396c25a61c28bbec2ed2e144c3799fd9415aaea5e89edd5b0936a1bea6edb9b4"
+    }
+  ]
+}

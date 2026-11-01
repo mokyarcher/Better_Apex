@@ -1,0 +1,107 @@
+<Window x:Class="BetterApex.HistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Better Apex · 历史记录" Width="1180" Height="820" MinWidth="960" MinHeight="680"
+        WindowStartupLocation="CenterOwner" Background="#0E1420" FontFamily="Microsoft YaHei UI" UseLayoutRounding="True"
+        Loaded="Window_Loaded">
+    <Grid Margin="26">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,0,20">
+            <StackPanel>
+                <TextBlock Text="历史记录" FontSize="26" FontWeight="SemiBold"/>
+                <TextBlock x:Name="HistoryCountText" Text="正在读取本地战绩…" Margin="0,8,0,0" Foreground="{StaticResource TextSecondary}"/>
+            </StackPanel>
+            <Button x:Name="RefreshButton" Content="刷新记录" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Refresh_Click"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="290"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="HistoryList" Background="#151E2D" BorderBrush="#2B374A" Foreground="#EDF1F7"
+                     SelectionChanged="HistorySelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.CanContentScroll="True" VirtualizingPanel.IsVirtualizing="True">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="Margin" Value="0,0,0,4"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="Card" Background="#151E2D" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True"><Setter TargetName="Card" Property="Background" Value="#304557"/></Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Card" Property="BorderBrush" Value="#F28479"/><Setter TargetName="Card" Property="BorderThickness" Value="1"/></Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="SemiBold"/>
+                            <TextBlock Text="{Binding Subtitle}" FontSize="12" Foreground="{StaticResource TextSecondary}" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Grid Grid.Column="1" Margin="20,0,0,0">
+                <TextBlock x:Name="EmptyHistoryText" Text="还没有保存的战绩。&#10;识别结算图后，点击“保存战绩”。" TextWrapping="Wrap"
+                           FontSize="18" Foreground="{StaticResource TextSecondary}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid x:Name="DetailsPanel" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock x:Name="MatchTitleText" FontSize="22" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="SavedTimeText" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,8,0,0"/>
+                        <TextBlock x:Name="RecordStatusText" Foreground="{StaticResource TextSecondary}" FontSize="12" Margin="0,6,0,14"/>
+                    </StackPanel>
+                    <DataGrid x:Name="SavedPlayers" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True"
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" HeadersVisibility="Column"
+                              Background="#151E2D" Foreground="#EDF1F7" RowBackground="#1D293B" AlternatingRowBackground="#182334"
+                              BorderBrush="#2B374A" GridLinesVisibility="None" RowHeight="38" Height="164" SelectionMode="Single" FontSize="13">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="Background" Value="#263246"/><Setter Property="Foreground" Value="#EDF1F7"/>
+                                <Setter Property="Padding" Value="8,9"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="玩家" Binding="{Binding DisplayName}" Width="*" MinWidth="160"/>
+                            <DataGridTextColumn Header="位置" Binding="{Binding Position}" Width="108"/>
+                            <DataGridTextColumn Header="击杀" Binding="{Binding Kills, TargetNullValue=待核对}" Width="55"/>
+                            <DataGridTextColumn Header="助攻" Binding="{Binding Assists, TargetNullValue=待核对}" Width="55"/>
+                            <DataGridTextColumn Header="击倒" Binding="{Binding Knocks, TargetNullValue=待核对}" Width="55"/>
+                            <DataGridTextColumn Header="伤害" Binding="{Binding Damage, TargetNullValue=待核对}" Width="70"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,16,0,12">
+                        <Button x:Name="SummaryImageButton" Content="结算截图" Background="#263246" Padding="14,8" Click="SummaryImage_Click" IsEnabled="False"/>
+                        <Button x:Name="RosterImageButton" Content="局内昵称截图" Background="#263246" Padding="14,8" Margin="10,0,0,0" Click="RosterImage_Click" IsEnabled="False"/>
+                        <TextBlock x:Name="ImageCaptionText" Foreground="{StaticResource TextSecondary}" VerticalAlignment="Center" FontSize="12" Margin="14,0,0,0"/>
+                    </StackPanel>
+                    <Border Grid.Row="3" Background="#151E2D" BorderBrush="#2B374A" BorderThickness="1" CornerRadius="8" Padding="10">
+                        <Image x:Name="SavedScreenshotPreview" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="2" Margin="0,14,0,0">
+            <TextBlock x:Name="HistoryErrorText" Foreground="#FFAD9F" TextWrapping="Wrap"/>
+            <TextBlock x:Name="DataLocationText" Foreground="{StaticResource TextSecondary}" FontSize="11" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

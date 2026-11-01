@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+.local/
+.vs/
+*.user
+/data/
+/artifacts/
+**/node_modules/
+/rust-app/dist/
+/rust-app/src-tauri/target/
+/rust-app/src-tauri/resources/
+
