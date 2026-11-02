@@ -12,7 +12,7 @@
 ## 项目现状
 
 - 当前主程序是 **Rust + Tauri 2 + Vue 3**，Rust 负责窗口采集、OCR、自动流程和本地 SQLite；前端负责单窗口 UI。
-- `BetterApex/` 下的 .NET/WPF 程序是旧版，保留作参考。新功能默认只在 `rust-app/` 实现；用户明确要求旧版兼容时再改 WPF。
+- 旧版 .NET/WPF 源码已从工作区移除；迁移经验见 `docs/旧版经验与迁移边界.md`。新功能只在 `rust-app/` 实现；不再维护旧版 WPF。
 - 当前为本地运行，不上传云端，也不导入或读取旧版战绩。
 - 昵称 OCR 已支持设置页选择 `PP-OCRv6 small`（未保存设置时默认试用）或原 `Windows OCR + Tesseract`。设置持久化在数据目录 `ocr-settings.json`；自动记录运行时前后端均禁止切换。一次 worker 固定并复用一个昵称引擎，不能静默回退或在同局混合采样。自动昵称只读02 HUD；03不可信卡片线索及手动局内识别也使用所选后端；页面判定与对局标记仍用原机制；结算数字随所选引擎切换，PP模式由同一PP实例直接识别，不静默回退到旧数字引擎。当前自动昵称只在02确认HUD后识别一次三人昵称，直接采用结果，不投票、不重试；01昵称采集与跨阶段合并已移除。
 - PP-OCRv6 small 以 ONNX Runtime 1.24.4 Windows x64 CPU 单线程本地运行，在现有昵称 ROI 内做水平文字检测和 CTC 识别，不依赖 Python／网络／GPU。模型来源、固定哈希、运行库和许可清单在 `scripts/ppocr-assets.json`；资源由 `scripts/Prepare-PpOcr.ps1` 离线校验，干净检出缺资源时显式使用 `-DownloadMissing`。交付必须包含完整 `resources/ppocr-v6-small/`；模型缺失／校验失败时明确报错，原方案仍可选择。

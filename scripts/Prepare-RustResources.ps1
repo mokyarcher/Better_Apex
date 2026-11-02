@@ -4,7 +4,7 @@ $repoPath = [IO.Path]::GetFullPath($RepoRoot)
 $resourceRoot = Join-Path $repoPath 'rust-app\src-tauri\resources'
 New-Item -ItemType Directory -Force -Path (Join-Path $resourceRoot 'tessdata'),(Join-Path $resourceRoot 'x64'),(Join-Path $resourceRoot 'licenses') | Out-Null
 foreach ($name in @('eng.traineddata','chi_sim.traineddata','LICENSE')) {
-    Copy-Item -LiteralPath (Join-Path $repoPath ('BetterApex\Ocr\tessdata\'+$name)) -Destination (Join-Path $resourceRoot 'tessdata')
+    Copy-Item -LiteralPath (Join-Path $repoPath ('assets\tesseract\tessdata\'+$name)) -Destination (Join-Path $resourceRoot 'tessdata')
 }
 $nativeRoot = Join-Path $repoPath '.local\packages\tesseract\5.2.0\x64'
 foreach ($name in @('tesseract50.dll','leptonica-1.82.0.dll')) {
@@ -35,3 +35,4 @@ foreach ($entry in ($lock -split '\[\[package\]\]')) {
 $output = "Cargo package sources and bundled license texts. Includes build-time packages for completeness.`n`n" + ($manifest -join "`n") + "`n`n" + (($licenseTexts.GetEnumerator() | Sort-Object Name | ForEach-Object { $_.Value }) -join "`n`n------------------------------------------------------------`n`n")
 [IO.File]::WriteAllText((Join-Path $resourceRoot 'licenses\Cargo-Notices.txt'),$output,[Text.Encoding]::UTF8)
 Write-Output ('Prepared x64 OCR resources and license notices: '+$resourceRoot)
+
